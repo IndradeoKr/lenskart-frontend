@@ -36,27 +36,31 @@ const Checkout = () => {
     setError('');
 
     try {
-      let lastOrderId = null;
+      // 1. Add all items to the backend cart
       for (const item of cart) {
-        // 1. Add item to backend cart
         await cartApi.addItemToCart({
           productId: item.productId,
           customerId: user.userid,
           quantity: item.quantity
         });
+      }
 
-        // 2. Fetch the newly created backend cart
-        const cartRes = await cartApi.getCartForCustomer(user.userid);
-        const backendCart = cartRes.data;
+      // 2. Fetch the newly created backend cart
+      const cartRes = await cartApi.getCartForCustomer(user.userid);
+      const backendCart = cartRes.data;
 
-        // 3. Place order for this cart
-        const orderRes = await orderApi.placeOrder({
-          date: new Date().toISOString(),
-          status: 'IN_PROGRESS',
-          cartId: backendCart.cartId,
-        });
+      if (!backendCart) {
+        throw new Error('Could not retrieve cart from backend');
+      }
 
-        const msg = orderRes.data;
+      // 3. Place ONE order for this cart
+      const orderRes = await orderApi.placeOrder({
+        date: new Date().toISOString(),
+        status: 'IN_PROGRESS',
+        cartId: backendCart.cartId,
+      });
+
+      const msg = orderRes.data;
         const idMatch = typeof msg === 'string' ? msg.match(/ID:\s*(\d+)/i) : null;
         if (idMatch) {
           lastOrderId = Number(idMatch[1]);
