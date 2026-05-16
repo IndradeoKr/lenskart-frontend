@@ -36,6 +36,7 @@ const Checkout = () => {
     setError('');
 
     try {
+      let lastOrderId = null;
       // 1. Add all items to the backend cart
       for (const item of cart) {
         await cartApi.addItemToCart({
@@ -61,10 +62,9 @@ const Checkout = () => {
       });
 
       const msg = orderRes.data;
-        const idMatch = typeof msg === 'string' ? msg.match(/ID:\s*(\d+)/i) : null;
-        if (idMatch) {
-          lastOrderId = Number(idMatch[1]);
-        }
+      const idMatch = typeof msg === 'string' ? msg.match(/ID:\s*(\d+)/i) : null;
+      if (idMatch) {
+        lastOrderId = Number(idMatch[1]);
       }
 
       setOrderId(lastOrderId);
