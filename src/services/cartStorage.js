@@ -1,9 +1,25 @@
 const CART_KEY = 'cart';
 
+const getCartKey = () =>{
+  try{
+    const userStr = localStorage.getItem('user');
+    if(userStr){
+      const user = JSON.parse(userStr);
+      if(user && user.userid){
+        return `cart_${user.userid}`;
+      }
+    }
+  }catch(e){
+    console.error("Error parsing user from localStorage for cart isolation", e);
+  }
+
+  return 'cart_guest';
+}
+
 export const cartStorage = {
   getCart() {
     try {
-      const raw = localStorage.getItem(CART_KEY);
+      const raw = localStorage.getItem(getCartKey());
       const parsed = raw ? JSON.parse(raw) : [];
       return Array.isArray(parsed) ? parsed : [];
     } catch {
@@ -12,11 +28,11 @@ export const cartStorage = {
   },
 
   setCart(items) {
-    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    localStorage.setItem(getCartKey(), JSON.stringify(items));
   },
 
   clearCart() {
-    localStorage.removeItem(CART_KEY);
+    localStorage.removeItem(getCartKey());
   },
 
   addItem(product, quantity = 1) {
