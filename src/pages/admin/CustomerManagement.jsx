@@ -31,6 +31,7 @@ const CustomerManagement = () => {
         setCustomers(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         setError(err.response?.data?.message || 'Failed to fetch customers');
+        setTimeout(() => setError(''), 2000);
       } finally {
         setLoading(false);
       }
@@ -45,6 +46,7 @@ const CustomerManagement = () => {
     const q = email.trim();
     if (!q) {
       setError('Enter a customer email');
+      setTimeout(() => setError(''), 2000);
       return;
     }
     setLoading(true);
@@ -54,6 +56,7 @@ const CustomerManagement = () => {
       setSuccess('Customer loaded');
     } catch (err) {
       setError(err.response?.data?.message || 'Customer not found');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -70,6 +73,7 @@ const CustomerManagement = () => {
       setSuccess('Customer deleted');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete customer');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

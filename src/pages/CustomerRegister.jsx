@@ -36,18 +36,22 @@ const CustomerRegister = () => {
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     if (formData.phoneNumber.length !== 10) {
       setError('Phone number must be 10 digits');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     if (!/^\d{10}$/.test(formData.phoneNumber)) {
       setError('Phone number must contain only digits');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     return true;
@@ -93,6 +97,7 @@ const CustomerRegister = () => {
       }, 2000);
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

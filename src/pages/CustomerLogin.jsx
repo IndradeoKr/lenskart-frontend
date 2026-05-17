@@ -42,6 +42,7 @@ const CustomerLogin = () => {
       // Verify it's a customer
       if (userData.role !== 'CUSTOMER') {
         setError('This account is not a customer account. Please use the admin login.');
+        setTimeout(() => setError(''), 2000);
         setLoading(false);
         return;
       }
@@ -51,6 +52,7 @@ const CustomerLogin = () => {
       navigate('/products');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid email or password');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

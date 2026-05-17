@@ -38,6 +38,7 @@ const AdminDashboard = () => {
       });
     } catch (err) {
       setError('Failed to fetch dashboard stats');
+      setTimeout(() => setError(''), 2000);
       console.error(err);
     } finally {
       setLoading(false);

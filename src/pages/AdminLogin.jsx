@@ -41,6 +41,7 @@ const AdminLogin = () => {
       // Verify it's an admin
       if (userData.role !== 'ADMIN') {
         setError('This account is not an admin account. Please use the customer login.');
+        setTimeout(() => setError(''), 2000);
         setLoading(false);
         return;
       }
@@ -50,6 +51,7 @@ const AdminLogin = () => {
       navigate('/admin/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid email or password');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

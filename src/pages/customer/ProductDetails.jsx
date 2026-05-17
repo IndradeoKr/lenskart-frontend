@@ -27,6 +27,7 @@ const ProductDetails = () => {
       setProduct(response.data);
     } catch (err) {
       setError('Failed to fetch product details');
+      setTimeout(() => setError(''), 2000);
       console.error(err);
     } finally {
       setLoading(false);
@@ -36,6 +37,7 @@ const ProductDetails = () => {
   const handleAddToCart = async () => {
     if (!user?.userid) {
       setError('Please login to add items to cart');
+      setTimeout(() => setError(''), 2000);
       return;
     }
 
@@ -60,6 +62,7 @@ const ProductDetails = () => {
       setTimeout(() => navigate('/cart'), 1500);
     } catch (err) {
       setError('Failed to add product to cart');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setAddingToCart(false);
     }

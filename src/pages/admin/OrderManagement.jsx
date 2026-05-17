@@ -20,6 +20,7 @@ const OrderManagement = () => {
       setOrders(response.data);
     } catch (err) {
       setError('Failed to fetch orders');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -37,6 +38,7 @@ const OrderManagement = () => {
       fetchOrders();
     } catch (err) {
       setError(err.response?.data?.message || typeof err.response?.data === 'string' ? err.response.data : 'Failed to update order');
+      setTimeout(() => setError(''), 2000);
     }
   };
 
@@ -47,6 +49,7 @@ const OrderManagement = () => {
       fetchOrders();
     } catch (err) {
       setError('Failed to delete order');
+      setTimeout(() => setError(''), 2000);
     }
   };
 

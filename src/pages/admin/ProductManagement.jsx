@@ -38,6 +38,7 @@ const ProductManagement = () => {
         setError('');
       } else {
         setError('Failed to fetch products');
+        setTimeout(() => setError(''), 2000);
       }
     } finally {
       setLoading(false);
@@ -100,6 +101,7 @@ const ProductManagement = () => {
       fetchProducts();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to save product');
+      setTimeout(() => setError(''), 2000);
     }
   };
 
@@ -111,6 +113,7 @@ const ProductManagement = () => {
       fetchProducts();
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data || 'Failed to delete product');
+      setTimeout(() => setError(''), 2000);
     }
   };
 

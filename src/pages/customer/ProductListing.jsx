@@ -51,6 +51,7 @@ const ProductListing = () => {
         setError('');
       } else {
         setError('Failed to fetch products');
+        setTimeout(() => setError(''), 2000);
       }
       console.error(err);
     } finally {
@@ -92,6 +93,7 @@ const ProductListing = () => {
 
     if (!user?.userid) {
       setError('Please login to add items to cart');
+      setTimeout(() => setError(''), 2000);
       return;
     }
     cartStorage.addItem(product, 1);

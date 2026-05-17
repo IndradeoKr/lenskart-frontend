@@ -57,18 +57,22 @@ const Register = () => {
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     if (!/^\d{10}$/.test(formData.phoneNumber)) {
       setError('Phone number must be 10 digits');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     if (role === 'ADMIN' && adminAvailable) {
       setError('An admin already exists. Only one admin account is allowed.');
+      setTimeout(() => setError(''), 2000);
       return false;
     }
     return true;
@@ -116,6 +120,7 @@ const Register = () => {
       }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data || 'Registration failed');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

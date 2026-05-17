@@ -40,6 +40,7 @@ const AdminManagement = () => {
         setAdmins([]);
       } else {
         setError(text || 'Failed to load admins');
+        setTimeout(() => setError(''), 2000);
       }
     } finally {
       setLoading(false);
@@ -93,6 +94,7 @@ const AdminManagement = () => {
       fetchAdmins();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to add admin');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -105,6 +107,7 @@ const AdminManagement = () => {
     const q = emailLookup.trim();
     if (!q) {
       setError('Enter an admin email');
+      setTimeout(() => setError(''), 2000);
       return;
     }
     setLoading(true);
@@ -114,6 +117,7 @@ const AdminManagement = () => {
       setSuccess('Admin loaded');
     } catch (err) {
       setError(err.response?.data?.message || 'Admin not found');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -134,6 +138,7 @@ const AdminManagement = () => {
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete admin');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

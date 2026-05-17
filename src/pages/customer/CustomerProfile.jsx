@@ -33,15 +33,18 @@ const CustomerProfile = () => {
     e.preventDefault();
     if (!password) {
       setError('Please enter your password to update profile');
+      setTimeout(() => setError(''), 2000);
       return;
     }
 
     if ((newPassword || confirmNewPassword) && newPassword.length < 6) {
       setError('New password must be at least 6 characters');
+      setTimeout(() => setError(''), 2000);
       return;
     }
     if (newPassword !== confirmNewPassword) {
       setError('New passwords do not match');
+      setTimeout(() => setError(''), 2000);
       return;
     }
 
@@ -75,6 +78,7 @@ const CustomerProfile = () => {
       setConfirmNewPassword('');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to update profile');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -83,6 +87,7 @@ const CustomerProfile = () => {
   const handleDeleteAccount = async () => {
     if (!password) {
       setError('Please enter your password');
+      setTimeout(() => setError(''), 2000);
       return;
     }
 
@@ -98,6 +103,7 @@ const CustomerProfile = () => {
       }, 1500);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to delete account');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }

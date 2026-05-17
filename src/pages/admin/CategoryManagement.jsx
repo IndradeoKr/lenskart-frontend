@@ -31,6 +31,7 @@ const CategoryManagement = () => {
         setCategories([]);
       } else {
         setError(text || 'Failed to fetch categories');
+        setTimeout(() => setError(''), 2000);
       }
     } finally {
       setLoading(false);
@@ -61,6 +62,7 @@ const CategoryManagement = () => {
     const id = Number(lookupId);
     if (!Number.isFinite(id) || id <= 0) {
       setError('Enter a valid category ID');
+      setTimeout(() => setError(''), 2000);
       return;
     }
     setLoading(true);
@@ -70,6 +72,7 @@ const CategoryManagement = () => {
       setSuccess('Category loaded');
     } catch (err) {
       setError(err.response?.data?.message || 'Category not found');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -82,6 +85,7 @@ const CategoryManagement = () => {
     const name = lookupName.trim();
     if (!name) {
       setError('Enter a category name');
+      setTimeout(() => setError(''), 2000);
       return;
     }
     setLoading(true);
@@ -91,6 +95,7 @@ const CategoryManagement = () => {
       setSuccess('Category loaded');
     } catch (err) {
       setError(err.response?.data?.message || 'Category not found');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setLoading(false);
     }
@@ -115,6 +120,7 @@ const CategoryManagement = () => {
       fetchAll();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to save category');
+      setTimeout(() => setError(''), 2000);
     }
   };
 
@@ -128,6 +134,7 @@ const CategoryManagement = () => {
       setSuccess('Category deleted');
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data || 'Failed to delete category');
+      setTimeout(() => setError(''), 2000);
     }
   };
 

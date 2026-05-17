@@ -29,6 +29,7 @@ const Checkout = () => {
   const handlePlaceOrder = async () => {
     if (!user?.userid) {
       setError('User not found');
+      setTimeout(() => setError(''), 2000);
       return;
     }
 
@@ -75,6 +76,7 @@ const Checkout = () => {
       }, 2000);
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data || 'Failed to place order');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setPlacing(false);
     }

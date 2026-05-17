@@ -23,7 +23,15 @@ const OrderHistory = () => {
         setOrders(Array.isArray(res.data) ? res.data : []);
       }
     } catch (err) {
-      setError('Failed to fetch orders');
+      const msg = err.response?.data?.message || err.response?.data || '';
+      const text = typeof msg === 'string' ? msg : '';
+      if (text.toLowerCase().includes('no orders')) {
+        setOrders([]);
+        setError('');
+      } else {
+        setError('Failed to fetch orders');
+        setTimeout(() => setError(''), 2000);
+      }
       console.error(err);
     } finally {
       setLoading(false);
@@ -39,6 +47,7 @@ const OrderHistory = () => {
       await fetchOrders();
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data || 'Failed to cancel order');
+      setTimeout(() => setError(''), 2000);
     } finally {
       setCancellingId(null);
     }
