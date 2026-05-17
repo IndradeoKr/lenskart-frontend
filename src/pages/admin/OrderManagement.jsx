@@ -94,6 +94,7 @@ const OrderManagement = () => {
                     <th className="px-4 py-3 text-left">Order ID</th>
                     <th className="px-4 py-3 text-left">Date</th>
                     <th className="px-4 py-3 text-left">Cart ID</th>
+                    <th className="px-4 py-3 text-left">Customer Email</th>
                     <th className="px-4 py-3 text-left">Status</th>
                     <th className="px-4 py-3 text-left">Actions</th>
                   </tr>
@@ -106,6 +107,9 @@ const OrderManagement = () => {
                         {new Date(order.date).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3">{order.cartId}</td>
+                      <td className="px-4 py-3 font-medium text-gray-700">
+                        {order.customerEmail || 'N/A'}
+                      </td>
                       <td className="px-4 py-3">
                         <span
                           className={`px-3 py-1 rounded-full text-sm font-semibold ${
