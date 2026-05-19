@@ -59,8 +59,8 @@ const OrderHistory = () => {
 
   const getStatusBadge = (status) => {
     const colors = {
-      IN_PROGRESS: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1 rounded-full text-xs font-bold',
-      DELIVERED: 'bg-green-500/10 text-green-400 border border-green-500/20 px-3 py-1 rounded-full text-xs font-bold',
+      IN_PROGRESS: 'bg-amber-950/60 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_12px_rgba(245,158,11,0.15)] uppercase tracking-wider',
+      DELIVERED: 'bg-emerald-950/60 text-emerald-300 border border-emerald-500/40 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_12px_rgba(16,185,129,0.15)] uppercase tracking-wider',
     };
     return colors[status] || 'bg-slate-800 text-slate-300 border border-white/5 px-3 py-1 rounded-full text-xs font-bold';
   };

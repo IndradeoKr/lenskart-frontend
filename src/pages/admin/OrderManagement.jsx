@@ -115,10 +115,10 @@ const OrderManagement = () => {
                       </td>
                       <td className="px-6 py-4 text-sm">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-bold border ${
+                          className={`px-3 py-1 rounded-full text-xs font-black border uppercase tracking-wider ${
                             order.status === 'IN_PROGRESS'
-                              ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
-                              : 'bg-green-500/10 text-green-400 border-green-500/20'
+                              ? 'bg-amber-950/60 text-amber-300 border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.15)]'
+                              : 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.15)]'
                           }`}
                         >
                           {order.status === 'IN_PROGRESS' ? 'In Progress' : 'Delivered'}
