@@ -61,19 +61,24 @@ const CustomerLogin = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4">
-        <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-          <h1 className="text-3xl font-bold text-center mb-8 text-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/80 relative overflow-hidden flex items-center justify-center px-4">
+        
+        {/* Decorative Glows */}
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div className="glass-card w-full max-w-md animate-fade-in-up z-10">
+          <h1 className="text-4xl font-extrabold text-center mb-8 bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
             Customer Login
           </h1>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="form-label">Email Address</label>
               <input
@@ -101,23 +106,23 @@ const CustomerLogin = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-2 text-lg font-semibold disabled:opacity-50"
+              className="w-full btn-primary py-3.5 text-lg font-bold disabled:opacity-50 flex items-center justify-center animate-pulse-glow"
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? 'Logging in...' : 'Sign In'}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-gray-600 mb-4">
+          <div className="mt-8 pt-6 border-t border-white/10 text-center space-y-4">
+            <p className="text-gray-400 font-medium">
               Don't have an account?{' '}
-              <Link to="/customer-register" className="text-blue-600 hover:underline font-semibold">
+              <Link to="/customer-register" className="text-indigo-400 hover:text-indigo-300 hover:underline font-semibold">
                 Register here
               </Link>
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-400 font-medium text-sm">
               Are you an admin?{' '}
-              <Link to="/admin-login" className="text-purple-600 hover:underline font-semibold">
-                Admin Login
+              <Link to="/admin-login" className="text-purple-400 hover:text-purple-300 hover:underline font-semibold">
+                Admin Gateway
               </Link>
             </p>
           </div>
