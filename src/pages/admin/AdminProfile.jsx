@@ -91,18 +91,20 @@ const AdminProfile = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-8 text-gray-900">Admin Profile</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <h1 className="text-4xl font-extrabold mb-8 bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+            Admin Profile
+          </h1>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 text-green-400 rounded-xl font-medium text-sm">
               {success}
             </div>
           )}
@@ -110,28 +112,30 @@ const AdminProfile = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Profile Summary */}
             <div className="lg:col-span-1">
-              <div className="card">
-                <h2 className="text-2xl font-bold mb-4">Profile Summary</h2>
-                <div className="space-y-3">
+              <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+                <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                  <span>👤</span> Profile Summary
+                </h2>
+                <div className="space-y-4">
                   <div>
-                    <p className="text-gray-600 text-sm">Username</p>
-                    <p className="font-semibold">{user?.userName}</p>
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Username</p>
+                    <p className="font-bold text-white text-lg">{user?.userName}</p>
                   </div>
                   <div>
-                    <p className="text-gray-600 text-sm">Full Name</p>
-                    <p className="font-semibold">{user?.name}</p>
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Full Name</p>
+                    <p className="font-bold text-white text-lg">{user?.name}</p>
                   </div>
                   <div>
-                    <p className="text-gray-600 text-sm">Email</p>
-                    <p className="font-semibold break-all">{user?.email}</p>
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Email</p>
+                    <p className="font-bold text-white text-lg break-all">{user?.email}</p>
                   </div>
                   <div>
-                    <p className="text-gray-600 text-sm">Phone</p>
-                    <p className="font-semibold">{user?.phoneNumber}</p>
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Phone</p>
+                    <p className="font-bold text-white text-lg">{user?.phoneNumber}</p>
                   </div>
                   <div>
-                    <p className="text-gray-600 text-sm">Role</p>
-                    <p className="font-semibold bg-purple-100 text-purple-700 px-3 py-1 rounded inline-block">
+                    <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1.5">Role</p>
+                    <p className="font-bold bg-purple-500/10 text-purple-300 border border-purple-500/20 px-3 py-1 rounded-xl text-sm inline-block">
                       {user?.role}
                     </p>
                   </div>
@@ -142,9 +146,11 @@ const AdminProfile = () => {
             {/* Edit Profile Form */}
             <div className="lg:col-span-2">
               {!editing ? (
-                <div className="card">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold">Account Details</h2>
+                <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+                  <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-3">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                      <span>🏠</span> Account Details
+                    </h2>
                     <button
                       onClick={() => setEditing(true)}
                       className="btn-primary"
@@ -154,12 +160,14 @@ const AdminProfile = () => {
                   </div>
                   <div className="space-y-4">
                     <div>
-                      <p className="text-gray-600 text-sm">Address</p>
-                      <p className="text-lg">{user?.address}</p>
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Address</p>
+                      <p className="text-lg text-white font-medium bg-slate-950/40 border border-white/5 p-4 rounded-xl leading-relaxed">
+                        {user?.address}
+                      </p>
                     </div>
                   </div>
 
-                  <div className="mt-6 space-y-3 border-t pt-6">
+                  <div className="mt-8 space-y-3 border-t border-white/10 pt-6">
                     <button
                       onClick={handleLogout}
                       className="w-full btn-secondary"
@@ -169,8 +177,10 @@ const AdminProfile = () => {
                   </div>
                 </div>
               ) : (
-                <div className="card">
-                  <h2 className="text-2xl font-bold mb-6">Edit Profile</h2>
+                <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+                  <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                    <span>✏️</span> Edit Profile
+                  </h2>
                   <form onSubmit={handleUpdateProfile} className="space-y-4">
                     <div>
                       <label className="form-label">Full Name</label>
@@ -255,7 +265,7 @@ const AdminProfile = () => {
                       />
                     </div>
 
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 pt-4 border-t border-white/5">
                       <button
                         type="submit"
                         disabled={loading}

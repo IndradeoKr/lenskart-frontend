@@ -60,80 +60,83 @@ const OrderManagement = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-8 text-gray-900">Order Management</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <h1 className="text-4xl font-extrabold mb-8 bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+            Order Management
+          </h1>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
-          <div className="mb-6">
+          <div className="mb-8 card bg-slate-900/40 border border-white/5 p-4 rounded-xl max-w-md">
+            <label className="form-label mb-2">Filter by Status</label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="form-input max-w-xs"
+              className="form-input bg-slate-950 text-white border-white/10"
             >
-              <option value="">All Orders</option>
-              <option value="IN_PROGRESS">In Progress</option>
-              <option value="DELIVERED">Delivered</option>
+              <option value="" className="bg-slate-950">All Orders</option>
+              <option value="IN_PROGRESS" className="bg-slate-950">In Progress</option>
+              <option value="DELIVERED" className="bg-slate-950">Delivered</option>
             </select>
           </div>
 
           {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
             </div>
           ) : (
-            <div className="overflow-x-auto card">
+            <div className="overflow-x-auto card bg-slate-900/40 border border-white/5 rounded-2xl p-0 shadow-2xl">
               <table className="w-full">
-                <thead className="bg-gray-100">
+                <thead className="bg-slate-950/80 text-indigo-300 text-xs font-bold uppercase tracking-wider border-b border-white/10">
                   <tr>
-                    <th className="px-4 py-3 text-left">Order ID</th>
-                    <th className="px-4 py-3 text-left">Date</th>
-                    <th className="px-4 py-3 text-left">Cart ID</th>
-                    <th className="px-4 py-3 text-left">Customer Email</th>
-                    <th className="px-4 py-3 text-left">Status</th>
-                    <th className="px-4 py-3 text-left">Actions</th>
+                    <th className="px-6 py-4 text-left">Order ID</th>
+                    <th className="px-6 py-4 text-left">Date</th>
+                    <th className="px-6 py-4 text-left">Cart ID</th>
+                    <th className="px-6 py-4 text-left">Customer Email</th>
+                    <th className="px-6 py-4 text-left">Status</th>
+                    <th className="px-6 py-4 text-left">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-white/5">
                   {filteredOrders.map(order => (
-                    <tr key={order.orderId} className="border-t hover:bg-gray-50">
-                      <td className="px-4 py-3">{order.orderId}</td>
-                      <td className="px-4 py-3">
+                    <tr key={order.orderId} className="hover:bg-white/5 text-gray-200 transition-colors">
+                      <td className="px-6 py-4 font-semibold text-sm">{order.orderId}</td>
+                      <td className="px-6 py-4 text-sm">
                         {new Date(order.date).toLocaleDateString()}
                       </td>
-                      <td className="px-4 py-3">{order.cartId}</td>
-                      <td className="px-4 py-3 font-medium text-gray-700">
+                      <td className="px-6 py-4 text-sm font-semibold">{order.cartId}</td>
+                      <td className="px-6 py-4 font-bold text-white text-sm">
                         {order.customerEmail || 'N/A'}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="px-6 py-4 text-sm">
                         <span
-                          className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                          className={`px-3 py-1 rounded-full text-xs font-bold border ${
                             order.status === 'IN_PROGRESS'
-                              ? 'bg-yellow-100 text-yellow-700'
-                              : 'bg-green-100 text-green-700'
+                              ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+                              : 'bg-green-500/10 text-green-400 border-green-500/20'
                           }`}
                         >
                           {order.status === 'IN_PROGRESS' ? 'In Progress' : 'Delivered'}
                         </span>
                       </td>
-                      <td className="px-4 py-3 space-x-2">
+                      <td className="px-6 py-4 space-x-2">
                         <button
                           onClick={() => {
                             setEditingOrder(order);
                             setNewStatus(order.status);
                           }}
-                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                          className="px-3.5 py-1.5 btn-secondary text-xs font-bold"
                         >
                           Update Status
                         </button>
                         <button
                           onClick={() => handleDelete(order.orderId)}
-                          className="px-3 py-1 btn-danger"
+                          className="px-3.5 py-1.5 btn-danger text-xs font-bold"
                         >
                           Delete
                         </button>
@@ -146,13 +149,15 @@ const OrderManagement = () => {
           )}
 
           {editingOrder && (
-            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-              <div className="bg-white rounded-lg p-6 max-w-md">
-                <h3 className="text-xl font-bold mb-4">Update Order Status</h3>
+            <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in-up">
+              <div className="glass-card max-w-md w-full border border-white/10">
+                <h3 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                  <span>📋</span> Update Order Status
+                </h3>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="form-input mb-4"
+                  className="form-input mb-6 bg-slate-950 text-white"
                 >
                   <option value="IN_PROGRESS" disabled={editingOrder.status === 'DELIVERED'}>
                     In Progress {editingOrder.status === 'DELIVERED' ? '(Cannot revert from Delivered)' : ''}
@@ -162,13 +167,13 @@ const OrderManagement = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={handleUpdateStatus}
-                    className="btn-primary flex-1"
+                    className="btn-primary flex-1 py-2.5 font-bold"
                   >
                     Update
                   </button>
                   <button
                     onClick={() => setEditingOrder(null)}
-                    className="btn-secondary flex-1"
+                    className="btn-secondary flex-1 py-2.5 font-semibold"
                   >
                     Cancel
                   </button>

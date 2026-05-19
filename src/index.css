@@ -130,4 +130,19 @@ code {
   background: rgba(99, 102, 241, 0.5);
 }
 
+.page-container {
+  @apply bg-slate-950 min-h-screen py-12 text-white relative overflow-hidden;
+}
+
+.page-container::before {
+  content: '';
+  @apply absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/5 rounded-full blur-[150px] pointer-events-none;
+}
+
+.page-container::after {
+  content: '';
+  @apply absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[150px] pointer-events-none;
+}
+
+
 

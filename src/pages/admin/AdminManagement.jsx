@@ -149,10 +149,12 @@ const AdminManagement = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900">Admin Management</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+              Admin Management
+            </h1>
             <button
               onClick={() => setShowForm(!showForm)}
               className="btn-primary"
@@ -162,21 +164,23 @@ const AdminManagement = () => {
           </div>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 text-green-400 rounded-xl font-medium text-sm">
               {success}
             </div>
           )}
 
-          <div className="card mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">Admins</h2>
-              <button onClick={fetchAdmins} disabled={loading} className="btn-secondary disabled:opacity-50">
+          <div className="card mb-8 bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+            <div className="flex items-center justify-between mb-6 border-b border-white/10 pb-3">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <span>🛡️</span> Search Administrators
+              </h2>
+              <button onClick={fetchAdmins} disabled={loading} className="btn-secondary py-1.5 px-4 text-xs font-bold disabled:opacity-50">
                 {loading ? 'Refreshing...' : 'Refresh'}
               </button>
             </div>
@@ -186,18 +190,18 @@ const AdminManagement = () => {
                 type="email"
                 value={emailLookup}
                 onChange={(e) => setEmailLookup(e.target.value)}
-                placeholder="Find by email"
-                className="form-input"
+                placeholder="Enter email to find"
+                className="form-input max-w-md bg-slate-950/60"
               />
-              <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50">
+              <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50 font-bold px-6">
                 Find
               </button>
             </form>
           </div>
 
           {showForm && (
-            <div className="card mb-8">
-              <h2 className="text-2xl font-bold mb-6">Add New Admin</h2>
+            <div className="card mb-8 bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+              <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3">Add New Admin</h2>
               <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
@@ -257,7 +261,7 @@ const AdminManagement = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="md:col-span-2 btn-primary disabled:opacity-50"
+                  className="md:col-span-2 btn-primary py-3 font-bold disabled:opacity-50"
                 >
                   {loading ? 'Adding...' : 'Add Admin'}
                 </button>
@@ -265,42 +269,44 @@ const AdminManagement = () => {
             </div>
           )}
 
-          <div className="card">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">Known Admins</h2>
-              <p className="text-sm text-gray-600">Use Find to populate.</p>
+          <div className="card bg-slate-900/40 border border-white/5 rounded-2xl p-0 overflow-hidden shadow-2xl">
+            <div className="p-6 border-b border-white/10">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <span>👥</span> Known Admins
+              </h2>
+              <p className="text-xs text-gray-400 font-semibold mt-1">Use the search box above to add administrative accounts here.</p>
             </div>
 
             {tableRows.length === 0 ? (
-              <p className="text-gray-600">No admins loaded yet.</p>
+              <p className="text-gray-400 p-6">No admins loaded yet.</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-100">
+                  <thead className="bg-slate-950/80 text-indigo-300 text-xs font-bold uppercase tracking-wider border-b border-white/10">
                     <tr>
-                      <th className="px-4 py-3 text-left">ID</th>
-                      <th className="px-4 py-3 text-left">Username</th>
-                      <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">Email</th>
-                      <th className="px-4 py-3 text-left">Phone</th>
-                      <th className="px-4 py-3 text-left">Address</th>
-                      <th className="px-4 py-3 text-left">Actions</th>
+                      <th className="px-6 py-4 text-left">ID</th>
+                      <th className="px-6 py-4 text-left">Username</th>
+                      <th className="px-6 py-4 text-left">Name</th>
+                      <th className="px-6 py-4 text-left">Email</th>
+                      <th className="px-6 py-4 text-left">Phone</th>
+                      <th className="px-6 py-4 text-left">Address</th>
+                      <th className="px-6 py-4 text-left">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-white/5">
                     {tableRows.map((admin) => (
-                      <tr key={admin.userid} className="border-t hover:bg-gray-50">
-                        <td className="px-4 py-3">{admin.userid}</td>
-                        <td className="px-4 py-3">{admin.userName}</td>
-                        <td className="px-4 py-3">{admin.name}</td>
-                        <td className="px-4 py-3 break-all">{admin.email}</td>
-                        <td className="px-4 py-3">{admin.phoneNumber}</td>
-                        <td className="px-4 py-3">{admin.address}</td>
-                        <td className="px-4 py-3">
+                      <tr key={admin.userid} className="hover:bg-white/5 text-gray-200 transition-colors">
+                        <td className="px-6 py-4 font-semibold text-sm">{admin.userid}</td>
+                        <td className="px-6 py-4 font-bold text-white text-sm">{admin.userName}</td>
+                        <td className="px-6 py-4 text-sm">{admin.name}</td>
+                        <td className="px-6 py-4 text-sm break-all font-semibold text-indigo-300">{admin.email}</td>
+                        <td className="px-6 py-4 text-sm">{admin.phoneNumber}</td>
+                        <td className="px-6 py-4 text-sm max-w-xs truncate">{admin.address}</td>
+                        <td className="px-6 py-4">
                           <button
                             onClick={() => handleDeleteAdmin(admin.userid)}
                             disabled={loading}
-                            className="px-3 py-1 btn-danger disabled:opacity-50"
+                            className="px-3.5 py-1.5 btn-danger text-xs font-bold disabled:opacity-50"
                           >
                             Delete
                           </button>

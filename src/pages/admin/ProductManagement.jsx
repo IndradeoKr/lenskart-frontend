@@ -140,10 +140,12 @@ const ProductManagement = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900">Product Management</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+              Product Management
+            </h1>
             <button
               onClick={() => {
                 setShowForm(!showForm);
@@ -166,16 +168,16 @@ const ProductManagement = () => {
           </div>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
           {/* Form */}
           {showForm && (
-            <div className="card mb-8">
-              <h2 className="text-2xl font-bold mb-6">
-                {editingId ? 'Edit Product' : 'Add New Product'}
+            <div className="card mb-8 bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+              <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                <span>📦</span> {editingId ? 'Edit Product' : 'Add New Product'}
               </h2>
               <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
@@ -220,16 +222,16 @@ const ProductManagement = () => {
                         setFormData((p) => ({ ...p, categoryName: v }));
                       }
                     }}
-                    className="form-input"
+                    className="form-input bg-slate-950 text-white"
                     required
                   >
-                    <option value="">Select category</option>
+                    <option value="" className="bg-slate-950">Select category</option>
                     {knownCategories.map((c) => (
-                      <option key={c} value={c}>
+                      <option key={c} value={c} className="bg-slate-950">
                         {c}
                       </option>
                     ))}
-                    <option value="__custom">Other (type)</option>
+                    <option value="__custom" className="bg-slate-950">Other (type)</option>
                   </select>
                   {categoryMode === 'custom' && (
                     <input
@@ -263,7 +265,7 @@ const ProductManagement = () => {
                 />
                 <button
                   type="submit"
-                  className="md:col-span-2 btn-primary"
+                  className="md:col-span-2 btn-primary py-3 font-bold"
                 >
                   {editingId ? 'Update' : 'Add'} Product
                 </button>
@@ -278,48 +280,52 @@ const ProductManagement = () => {
               placeholder="Search products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input"
+              className="form-input bg-slate-900/40 border border-white/5"
             />
           </div>
 
           {/* Products Table */}
           {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
             </div>
           ) : (
-            <div className="overflow-x-auto card">
+            <div className="overflow-x-auto card bg-slate-900/40 border border-white/5 rounded-2xl p-0">
               <table className="w-full">
-                <thead className="bg-gray-100">
+                <thead className="bg-slate-950/80 text-indigo-300 text-xs font-bold uppercase tracking-wider border-b border-white/10">
                   <tr>
-                    <th className="px-4 py-3 text-left">ID</th>
-                    <th className="px-4 py-3 text-left">Name</th>
-                    <th className="px-4 py-3 text-left">Brand</th>
-                    <th className="px-4 py-3 text-left">Category</th>
-                    <th className="px-4 py-3 text-left">Price</th>
-                    <th className="px-4 py-3 text-left">Quantity</th>
-                    <th className="px-4 py-3 text-left">Actions</th>
+                    <th className="px-6 py-4 text-left">ID</th>
+                    <th className="px-6 py-4 text-left">Name</th>
+                    <th className="px-6 py-4 text-left">Brand</th>
+                    <th className="px-6 py-4 text-left">Category</th>
+                    <th className="px-6 py-4 text-left">Price</th>
+                    <th className="px-6 py-4 text-left">Quantity</th>
+                    <th className="px-6 py-4 text-left">Actions</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-white/5">
                   {filteredProducts.map(product => (
-                    <tr key={product.productId} className="border-t hover:bg-gray-50">
-                      <td className="px-4 py-3">{product.productId}</td>
-                      <td className="px-4 py-3">{product.productName}</td>
-                      <td className="px-4 py-3">{product.brand}</td>
-                      <td className="px-4 py-3">{product.category ?? product.categoryName}</td>
-                      <td className="px-4 py-3">₹{product.productPrice.toFixed(2)}</td>
-                      <td className="px-4 py-3">{product.quantity}</td>
-                      <td className="px-4 py-3 space-x-2">
+                    <tr key={product.productId} className="hover:bg-white/5 text-gray-200 transition-colors">
+                      <td className="px-6 py-4 font-semibold text-sm">{product.productId}</td>
+                      <td className="px-6 py-4 font-bold text-white text-sm">{product.productName}</td>
+                      <td className="px-6 py-4 text-sm">{product.brand}</td>
+                      <td className="px-6 py-4 text-sm">
+                        <span className="bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2 py-0.5 rounded-md text-xs font-bold">
+                          {product.category ?? product.categoryName}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 font-extrabold text-sm text-indigo-400">₹{product.productPrice.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-sm font-semibold">{product.quantity}</td>
+                      <td className="px-6 py-4 space-x-2">
                         <button
                           onClick={() => handleEdit(product)}
-                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                          className="px-3.5 py-1.5 btn-secondary text-xs font-bold"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDelete(product.productId)}
-                          className="px-3 py-1 btn-danger"
+                          className="px-3.5 py-1.5 btn-danger text-xs font-bold"
                         >
                           Delete
                         </button>

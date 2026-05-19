@@ -143,10 +143,12 @@ const CategoryManagement = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900">Category Management</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+              Category Management
+            </h1>
             <button
               onClick={() => {
                 setShowForm(!showForm);
@@ -160,20 +162,20 @@ const CategoryManagement = () => {
           </div>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 text-green-400 rounded-xl font-medium text-sm">
               {success}
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="card">
-              <h2 className="text-xl font-bold mb-4">Find Category by ID</h2>
+            <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+              <h2 className="text-xl font-bold mb-4 text-white">Find Category by ID</h2>
               <form onSubmit={handleLookupById} className="flex gap-3">
                 <input
                   type="number"
@@ -183,14 +185,14 @@ const CategoryManagement = () => {
                   placeholder="Category ID"
                   className="form-input"
                 />
-                <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50">
+                <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50 font-bold px-6">
                   Find
                 </button>
               </form>
             </div>
 
-            <div className="card">
-              <h2 className="text-xl font-bold mb-4">Find Category by Name</h2>
+            <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+              <h2 className="text-xl font-bold mb-4 text-white">Find Category by Name</h2>
               <form onSubmit={handleLookupByName} className="flex gap-3">
                 <input
                   type="text"
@@ -199,7 +201,7 @@ const CategoryManagement = () => {
                   placeholder="Category name"
                   className="form-input"
                 />
-                <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50">
+                <button type="submit" disabled={loading} className="btn-primary disabled:opacity-50 font-bold px-6">
                   Find
                 </button>
               </form>
@@ -207,8 +209,8 @@ const CategoryManagement = () => {
           </div>
 
           {showForm && (
-            <div className="card mb-8 max-w-md">
-              <h2 className="text-2xl font-bold mb-6">
+            <div className="card mb-8 max-w-md bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+              <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3">
                 {editingId ? 'Edit Category' : 'Add New Category'}
               </h2>
               <form onSubmit={handleSubmit}>
@@ -220,50 +222,52 @@ const CategoryManagement = () => {
                   required
                   className="form-input mb-4"
                 />
-                <button type="submit" className="btn-primary w-full">
+                <button type="submit" className="btn-primary w-full py-3 font-bold">
                   {editingId ? 'Update' : 'Add'} Category
                 </button>
               </form>
             </div>
           )}
 
-          <div className="card">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold">All Categories</h2>
-              <button onClick={fetchAll} disabled={loading} className="btn-secondary disabled:opacity-50">
+          <div className="card bg-slate-900/40 border border-white/5 rounded-2xl p-0 overflow-hidden shadow-2xl">
+            <div className="flex items-center justify-between p-6 border-b border-white/10">
+              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                <span>🏷️</span> All Categories
+              </h2>
+              <button onClick={fetchAll} disabled={loading} className="btn-secondary py-1.5 px-4 text-xs font-bold disabled:opacity-50">
                 {loading ? 'Refreshing...' : 'Refresh'}
               </button>
             </div>
 
             {tableRows.length === 0 ? (
-              <p className="text-gray-600">No categories found.</p>
+              <p className="text-gray-400 p-6">No categories found.</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-100">
+                  <thead className="bg-slate-950/80 text-indigo-300 text-xs font-bold uppercase tracking-wider border-b border-white/10">
                     <tr>
-                      <th className="px-4 py-3 text-left">ID</th>
-                      <th className="px-4 py-3 text-left">Name</th>
-                      <th className="px-4 py-3 text-left">Actions</th>
+                      <th className="px-6 py-4 text-left">ID</th>
+                      <th className="px-6 py-4 text-left">Name</th>
+                      <th className="px-6 py-4 text-left">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="divide-y divide-white/5">
                     {tableRows.map((c) => (
-                      <tr key={c.categoryId} className="border-t hover:bg-gray-50">
-                        <td className="px-4 py-3">{c.categoryId}</td>
-                        <td className="px-4 py-3">{c.categoryName}</td>
-                        <td className="px-4 py-3 space-x-2">
+                      <tr key={c.categoryId} className="hover:bg-white/5 text-gray-200 transition-colors">
+                        <td className="px-6 py-4 font-semibold text-sm">{c.categoryId}</td>
+                        <td className="px-6 py-4 font-bold text-white text-sm">{c.categoryName}</td>
+                        <td className="px-6 py-4 space-x-2">
                           <button
                             onClick={() => {
                               setEditingId(c.categoryId);
                               setFormData({ categoryName: c.categoryName });
                               setShowForm(true);
                             }}
-                            className="px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                            className="px-3 py-1.5 btn-secondary text-xs font-bold"
                           >
                             Edit
                           </button>
-                          <button onClick={() => handleDelete(c.categoryId)} className="px-3 py-1 btn-danger">
+                          <button onClick={() => handleDelete(c.categoryId)} className="px-3 py-1.5 btn-danger text-xs font-bold">
                             Delete
                           </button>
                         </td>

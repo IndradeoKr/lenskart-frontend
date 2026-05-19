@@ -59,90 +59,93 @@ const OrderHistory = () => {
 
   const getStatusBadge = (status) => {
     const colors = {
-      IN_PROGRESS: 'bg-yellow-100 text-yellow-700',
-      DELIVERED: 'bg-green-100 text-green-700',
+      IN_PROGRESS: 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1 rounded-full text-xs font-bold',
+      DELIVERED: 'bg-green-500/10 text-green-400 border border-green-500/20 px-3 py-1 rounded-full text-xs font-bold',
     };
-    return colors[status] || 'bg-gray-100 text-gray-700';
+    return colors[status] || 'bg-slate-800 text-slate-300 border border-white/5 px-3 py-1 rounded-full text-xs font-bold';
   };
 
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-8 text-gray-900">Order History</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <h1 className="text-4xl font-extrabold mb-8 bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+            Order History
+          </h1>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
               {error}
             </div>
           )}
 
           {/* Filters */}
-          <div className="mb-6">
-            <label className="form-label">Filter by Status</label>
+          <div className="mb-8 card bg-slate-900/40 border border-white/5 p-4 rounded-xl max-w-md">
+            <label className="form-label mb-2">Filter by Status</label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="form-input max-w-xs"
+              className="form-input bg-slate-950 text-white border-white/10"
             >
-              <option value="">All Orders</option>
-              <option value="IN_PROGRESS">In Progress</option>
-              <option value="DELIVERED">Delivered</option>
+              <option value="" className="bg-slate-950">All Orders</option>
+              <option value="IN_PROGRESS" className="bg-slate-950">In Progress</option>
+              <option value="DELIVERED" className="bg-slate-950">Delivered</option>
             </select>
           </div>
 
           {loading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="text-gray-600 mt-4">Loading orders...</p>
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
+              <p className="text-gray-400 mt-4 font-semibold">Loading orders...</p>
             </div>
           ) : filteredOrders.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-xl text-gray-600">
+            <div className="text-center py-20 card border border-white/5 bg-slate-900/30">
+              <span className="text-5xl mb-4 block">📦</span>
+              <p className="text-xl text-gray-300 font-bold">
                 {orders.length === 0 ? 'No orders yet' : 'No orders matching the filter'}
               </p>
             </div>
           ) : (
             <div className="space-y-4">
               {filteredOrders.map(order => (
-                <div key={order.orderId} className="card">
-                  <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
+                <div key={order.orderId} className="card bg-slate-900/40 border border-white/5 hover:border-indigo-500/20 transition-all duration-300">
+                  <div className="grid grid-cols-1 md:grid-cols-6 gap-6 items-center">
                     <div>
-                      <p className="text-gray-600 text-sm">Order ID</p>
-                      <p className="font-semibold text-lg">{order.orderId}</p>
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Order ID</p>
+                      <p className="font-bold text-white text-lg">{order.orderId}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600 text-sm">Date</p>
-                      <p className="font-semibold">
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Date</p>
+                      <p className="font-bold text-white">
                         {new Date(order.date).toLocaleDateString()}
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-600 text-sm">Cart ID</p>
-                      <p className="font-semibold">{order.cartId}</p>
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Cart ID</p>
+                      <p className="font-bold text-white">{order.cartId}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600 text-sm">Status</p>
-                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${getStatusBadge(order.status)}`}>
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1.5">Status</p>
+                      <span className={`${getStatusBadge(order.status)}`}>
                         {order.status === 'IN_PROGRESS' ? 'In Progress' : 'Delivered'}
                       </span>
                     </div>
-                    <div className="text-right">
-                      <p className="text-gray-600 text-sm">Order Time</p>
-                      <p className="font-semibold">{new Date(order.date).toLocaleTimeString()}</p>
+                    <div className="md:text-right">
+                      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Time</p>
+                      <p className="font-bold text-white">{new Date(order.date).toLocaleTimeString()}</p>
                     </div>
                     <div className="md:text-right">
                       {order.status === 'IN_PROGRESS' ? (
                         <button
                           onClick={() => handleCancel(order.orderId)}
                           disabled={cancellingId === order.orderId}
-                          className="btn-danger disabled:opacity-50"
+                          className="btn-danger py-1.5 px-4 text-xs font-bold disabled:opacity-50"
                         >
                           {cancellingId === order.orderId ? 'Cancelling...' : 'Cancel Order'}
                         </button>
                       ) : (
-                        <span className="text-sm text-gray-500">-</span>
+                        <span className="text-xs text-gray-500 font-semibold">-</span>
                       )}
                     </div>
                   </div>

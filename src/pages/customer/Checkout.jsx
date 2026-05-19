@@ -86,10 +86,11 @@ const Checkout = () => {
     return (
       <>
         <Navbar />
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600 mb-4">Your cart is empty</p>
-            <Link to="/products" className="btn-primary">
+        <div className="page-container animate-fade-in-up">
+          <div className="container mx-auto px-6 relative z-10 text-center py-20 card border border-white/5 bg-slate-900/30">
+            <span className="text-5xl mb-6 block">🛒</span>
+            <p className="text-xl text-gray-300 mb-6 font-bold">Your cart is empty</p>
+            <Link to="/products" className="btn-primary inline-block">
               Continue Shopping
             </Link>
           </div>
@@ -101,28 +102,32 @@ const Checkout = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-gray-50 min-h-screen py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-8 text-gray-900">Order Checkout</h1>
+      <div className="page-container animate-fade-in-up">
+        <div className="container mx-auto px-6 relative z-10">
+          <h1 className="text-4xl font-extrabold mb-8 bg-gradient-to-r from-indigo-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-pulse-glow">
+            Order Checkout
+          </h1>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Order Summary */}
-            <div className="lg:col-span-2">
-              <div className="card mb-6">
-                <h2 className="text-2xl font-bold mb-6">Order Items</h2>
+            <div className="lg:col-span-2 space-y-6">
+              <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+                <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                  <span>🛍️</span> Order Items
+                </h2>
                 <div className="space-y-4">
                   {cart.map((item, index) => (
                     <div
                       key={index}
-                      className="flex justify-between items-center pb-4 border-b"
+                      className="flex justify-between items-center pb-4 border-b border-white/5"
                     >
                       <div>
-                        <h3 className="font-semibold">{item.productName}</h3>
-                        <p className="text-gray-600">Qty: {item.quantity}</p>
+                        <h3 className="font-bold text-white text-lg">{item.productName}</h3>
+                        <p className="text-gray-400 text-sm">Qty: <span className="font-semibold text-gray-200">{item.quantity}</span></p>
                       </div>
                       <div className="text-right">
-                        <p className="text-gray-600">₹{item.productPrice.toFixed(2)}</p>
-                        <p className="font-bold text-lg">
+                        <p className="text-sm text-gray-400">₹{item.productPrice.toFixed(2)}</p>
+                        <p className="font-black text-indigo-400 text-lg">
                           ₹{(item.productPrice * item.quantity).toFixed(2)}
                         </p>
                       </div>
@@ -132,15 +137,19 @@ const Checkout = () => {
               </div>
 
               {/* Delivery Address */}
-              <div className="card">
-                <h2 className="text-2xl font-bold mb-4">Delivery Address</h2>
-                <div className="bg-gray-100 p-4 rounded">
-                  <p className="font-semibold mb-2">{user?.name}</p>
-                  <p className="text-gray-700">{user?.address}</p>
-                  <p className="text-gray-700">Email: {user?.email}</p>
-                  <p className="text-gray-700">Phone: {user?.phoneNumber}</p>
+              <div className="card bg-slate-900/40 border border-white/5 p-6 rounded-2xl shadow-2xl">
+                <h2 className="text-2xl font-bold mb-4 text-white border-b border-white/10 pb-3 flex items-center gap-2">
+                  <span>📍</span> Delivery Address
+                </h2>
+                <div className="bg-slate-950/60 border border-white/5 p-5 rounded-xl space-y-2">
+                  <p className="font-bold text-white text-lg">{user?.name}</p>
+                  <p className="text-gray-300 text-sm leading-relaxed">{user?.address}</p>
+                  <div className="pt-2 border-t border-white/5 space-y-1 text-xs text-gray-400">
+                    <p>Email: <span className="text-gray-200">{user?.email}</span></p>
+                    <p>Phone: <span className="text-gray-200">{user?.phoneNumber}</span></p>
+                  </div>
                 </div>
-                <Link to="/profile" className="text-blue-600 hover:underline mt-4 inline-block">
+                <Link to="/profile" className="text-indigo-400 hover:text-indigo-300 hover:underline mt-4 inline-block font-semibold">
                   Edit Address
                 </Link>
               </div>
@@ -148,41 +157,43 @@ const Checkout = () => {
 
             {/* Order Total */}
             <div className="lg:col-span-1">
-              <div className="card sticky top-20">
-                <h2 className="text-2xl font-bold mb-6">Order Total</h2>
+              <div className="card sticky top-28 bg-slate-900/60 border border-white/10 p-6 rounded-2xl shadow-2xl backdrop-blur-md">
+                <h2 className="text-2xl font-bold mb-6 text-white border-b border-white/10 pb-3">
+                  Order Total
+                </h2>
 
-                <div className="space-y-4 mb-6 border-b pb-6">
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Items:</span>
-                    <span className="font-semibold">{getTotalItems()}</span>
+                <div className="space-y-4 mb-6 border-b border-white/10 pb-6 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Items:</span>
+                    <span className="font-bold text-white">{getTotalItems()}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Subtotal:</span>
-                    <span className="font-semibold">₹{getTotalPrice().toFixed(2)}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Subtotal:</span>
+                    <span className="font-bold text-white">₹{getTotalPrice().toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-700">Shipping:</span>
-                    <span className="font-semibold">Free</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">Shipping:</span>
+                    <span className="font-bold text-green-400">Free</span>
                   </div>
-                  <div className="flex justify-between text-xl border-t pt-4">
-                    <span className="font-bold">Total:</span>
-                    <span className="font-bold text-blue-600">
+                  <div className="flex justify-between items-center text-lg border-t border-white/5 pt-4">
+                    <span className="font-bold text-white">Total:</span>
+                    <span className="font-black text-indigo-400 text-xl">
                       ₹{getTotalPrice().toFixed(2)}
                     </span>
                   </div>
                 </div>
 
                 {error && (
-                  <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                  <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl font-medium text-sm animate-pulse">
                     {error}
                   </div>
                 )}
 
                 {success && (
-                  <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                  <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 text-green-400 rounded-xl font-medium text-sm">
                     {success}
                     {orderId ? (
-                      <div className="mt-2 font-semibold">Order ID: {orderId}</div>
+                      <div className="mt-2 font-semibold text-xs">Order ID: {orderId}</div>
                     ) : null}
                   </div>
                 )}
@@ -191,13 +202,13 @@ const Checkout = () => {
                   <button
                     onClick={handlePlaceOrder}
                     disabled={placing}
-                    className="w-full btn-primary py-3 text-lg disabled:opacity-50"
+                    className="w-full btn-primary py-3.5 text-lg font-bold flex items-center justify-center animate-pulse-glow disabled:opacity-50"
                   >
                     {placing ? 'Placing Order...' : 'Place Order'}
                   </button>
                   <Link
                     to="/cart"
-                    className="block text-center btn-secondary py-2"
+                    className="block text-center btn-secondary py-2.5 text-sm"
                   >
                     Back to Cart
                   </Link>
