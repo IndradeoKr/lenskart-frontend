@@ -144,5 +144,8 @@ code {
   @apply absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-[150px] pointer-events-none;
 }
 
-
-
+/* Force solid dark slate background and high contrast white text for browser native select dropdown options */
+select option {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
